@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="358dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="15dp"
+        android:contentDescription="Random image chosen by user"
+        app:layout_constraintBottom_toTopOf="@+id/load_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+    <Button
+        android:id="@+id/load_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#85CA88"
+        android:ellipsize="none"
+        android:fontFamily="@font/nunito"
+        android:text="LOAD IMAGE"
+        android:textColor="#0B0A0A"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:typeface="monospace"
+        app:layout_constraintBottom_toTopOf="@+id/des"
+        app:layout_constraintEnd_toStartOf="@+id/caesar"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <Button
+        android:id="@+id/caesar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#8BC0EA"
+        android:fontFamily="@font/nunito"
+        android:text="CAESAR"
+        android:textColor="#0B0A0A"
+        android:textSize="14sp"
+        android:typeface="monospace"
+        app:layout_constraintBottom_toBottomOf="@+id/load_btn"
+        app:layout_constraintEnd_toStartOf="@+id/xor"
+        app:layout_constraintStart_toEndOf="@+id/load_btn"
+        app:layout_constraintTop_toTopOf="@+id/load_btn" />
+
+    <Button
+        android:id="@+id/xor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#8BC0EA"
+        android:fontFamily="@font/nunito"
+        android:text="XOR"
+        android:textColor="#0B0A0A"
+        android:textSize="14sp"
+        android:typeface="monospace"
+        app:layout_constraintBottom_toBottomOf="@+id/caesar"
+        app:layout_constraintEnd_toStartOf="@+id/sdes"
+        app:layout_constraintStart_toEndOf="@+id/caesar"
+        app:layout_constraintTop_toTopOf="@+id/caesar" />
+
+    <Button
+        android:id="@+id/sdes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#8BC0EA"
+        android:fontFamily="@font/nunito"
+        android:text="S-DES"
+        android:textColor="#0B0A0A"
+        android:textSize="14sp"
+        android:typeface="monospace"
+        app:layout_constraintBottom_toBottomOf="@+id/xor"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/xor"
+        app:layout_constraintTop_toTopOf="@+id/xor" />
+
+    <Button
+        android:id="@+id/des"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:backgroundTint="#AF91E4"
+        android:fontFamily="@font/nunito"
+        android:text="DES"
+        android:textColor="#0B0A0A"
+        android:textSize="14sp"
+        android:typeface="monospace"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/load_btn"
+        app:layout_constraintStart_toStartOf="@+id/load_btn"
+        app:layout_constraintTop_toBottomOf="@+id/load_btn" />
+
+    <Button
+        android:id="@+id/aes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#AF91E4"
+        android:fontFamily="@font/nunito"
+        android:text="AES"
+        android:textColor="#0B0A0A"
+        android:textSize="14sp"
+        android:typeface="monospace"
+        app:layout_constraintBottom_toBottomOf="@+id/des"
+        app:layout_constraintEnd_toEndOf="@+id/caesar"
+        app:layout_constraintStart_toStartOf="@+id/caesar"
+        app:layout_constraintTop_toTopOf="@+id/des" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
