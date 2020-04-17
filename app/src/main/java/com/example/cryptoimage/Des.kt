@@ -12,7 +12,7 @@ class Des {
     fun encrypt(yourKey: SecretKey, fileData: ByteArray): ByteArray {
         val data = yourKey.getEncoded()
         val skeySpec = SecretKeySpec(data, 0, data.size, "DES")
-        val cipher = Cipher.getInstance("AES","BC")
+        val cipher = Cipher.getInstance("DES","BC")
         cipher.init(Cipher.ENCRYPT_MODE, skeySpec, IvParameterSpec(ByteArray(cipher.getBlockSize())))
         var encoded = cipher.doFinal(fileData)
         return encoded

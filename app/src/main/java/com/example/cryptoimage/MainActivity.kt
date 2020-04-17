@@ -34,8 +34,10 @@ class MainActivity : AppCompatActivity() {
         private var xor_state = 0
         //state aes
         private var aes_state = 0
-        //state aes
+        //state des
         private var des_state = 0
+        //state sdes
+        private var sdes_state = 0
         //aes key
         private var key_aes = generateSecretKeyAes()
         //aes raw bytes
@@ -129,6 +131,19 @@ class MainActivity : AppCompatActivity() {
         //SDES button
         sdes.setOnClickListener {
             //TODO implementar clique sdes
+            if (sdes_state == 0)
+            {
+                val image = SdesEncrypt()
+                imageView.setImageBitmap(image)
+                sdes_state += 1
+                Toast.makeText(this, "Encrytped", Toast.LENGTH_SHORT).show()
+            }else{
+                val image = SdesDecrypt()
+                imageView.setImageBitmap(image)
+                sdes_state -= 1
+                Toast.makeText(this, "Decrypted", Toast.LENGTH_SHORT).show()
+            }
+
         }
 
         //AES button
@@ -150,7 +165,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         des.setOnClickListener {
-            //TODO implementar clique des
             if (des_state == 0)
             {
                 val (image, raw_pixels) = DesEncrypt()
@@ -166,6 +180,88 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "Decrypted", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun SdesDecrypt():Bitmap
+    {
+        val pixel_array = ArrayList<Int>()
+        val bitmap = imageView.drawable.toBitmap()
+        val img_width = bitmap.width
+        val img_height = bitmap.height
+        val bmp_Copy: Bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true)
+
+        // Loop through image pixels
+        for(i in 0 until img_width)
+        {
+            for (j in 0 until img_height)
+            {
+                // Get individual colors
+                @ColorInt
+                val cor = bitmap.getPixel(i,j)
+
+                val alphaValue = Color.alpha(cor)
+                val redValue = Color.red(cor)
+                val blueValue = Color.blue(cor)
+                val greenValue = Color.green(cor)
+
+                // Add pixel to list
+                pixel_array.addAll(listOf(alphaValue,redValue,greenValue, blueValue))
+
+                val sdes = Sdes()
+
+                // Encrypt pixels
+                val cor_final = sdes.decrypt(pixel_array)
+
+                // Set pixel in bitmap
+                bmp_Copy.setPixel(i, j, Color.argb( cor_final.get(0),cor_final.get(1), cor_final.get(2),cor_final.get(3) ))
+
+                // Clear pixel array
+                pixel_array.clear()
+            }
+        }
+
+        return bmp_Copy
+    }
+
+    private fun SdesEncrypt():Bitmap
+    {
+        val pixel_array = ArrayList<Int>()
+        val bitmap = imageView.drawable.toBitmap()
+        val img_width = bitmap.width
+        val img_height = bitmap.height
+        val bmp_Copy: Bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true)
+
+        // Loop through image pixels
+        for(i in 0 until img_width)
+        {
+            for (j in 0 until img_height)
+            {
+                // Get individual colors
+                @ColorInt
+                val cor = bitmap.getPixel(i,j)
+
+                val alphaValue = Color.alpha(cor)
+                val redValue = Color.red(cor)
+                val blueValue = Color.blue(cor)
+                val greenValue = Color.green(cor)
+
+                // Add pixel to list
+                pixel_array.addAll(listOf(alphaValue,redValue,greenValue, blueValue))
+
+                val sdes = Sdes()
+
+                // Encrypt pixels
+                val cor_final = sdes.encrypt(pixel_array)
+
+                // Set pixel in bitmap
+                bmp_Copy.setPixel(i, j, Color.argb( cor_final.get(0),cor_final.get(1), cor_final.get(2),cor_final.get(3) ))
+
+                // Clear pixel array
+                pixel_array.clear()
+            }
+        }
+
+        return bmp_Copy
     }
 
     private fun DesEncrypt(): Pair<Bitmap,ArrayList<ByteArray>>
